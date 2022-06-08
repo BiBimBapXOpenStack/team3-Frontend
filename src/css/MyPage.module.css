@@ -1,0 +1,43 @@
+.main {
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container {
+    margin-top: 50px;
+    width: 1000px;
+    height: 500px;
+}
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+.one {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+.two {
+    margin-top: 50px;
+    display: none;
+}
+.row {
+    height: 60px;
+    width: 300px;
+}
+.text {
+
+}
+.btn{
+    margin-top: 40px;
+    display: block;
+    width: 100px;
+    height: 25px;
+}

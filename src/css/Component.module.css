@@ -1,0 +1,55 @@
+.header {
+    position: fixed;
+    margin-bottom: 660px;
+    width: 900px;
+    height: 100px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+}
+.title {
+    font-size: 45px;
+}
+.nav {
+    display: block;
+    height: fit-content;
+}
+.menuBar {
+    list-style: none;
+    display: block;
+    margin: 0;
+    text-align: center;
+}
+.menuItem {
+    display: inline-block;
+    margin: 20px;
+    width: 100px;
+}
+.commonTable {
+    width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    border-spacing: 0;
+}
+
+.commonTableHeaderColumn {
+    border-bottom: 1px solid #e8e8e8;
+    padding: 0;
+    font-size: 16px;
+    padding: 10px 5px;
+    font-weight: bold;
+}
+
+.commonTableRow:hover {
+    background-color: #eceaea;
+    cursor: pointer;
+}
+
+.commonTableColumn {
+    padding: 10px 5px;
+}
+
+.menuItem:hover {
+    color: lightslategrey;
+}
