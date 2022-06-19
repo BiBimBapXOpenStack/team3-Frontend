@@ -2,6 +2,9 @@ import styles from "../css/MyPage.module.css";
 import Title from "../component/Title";
 import {useState} from "react";
 import MainCommonTable from "../component/table/MainCommonTable";
+import {Link} from 'react-router-dom'
+import axios from "axios";
+import setAuthorizationToken from "../router/setAuthorizationToken";
 
 function MyPage() {
     const [page, setPage] = useState(true);
@@ -22,9 +25,26 @@ function MyPage() {
             btn.innerText = '내 정보 보기'
         }
     }
-    function edit() {
-        window.location.href = "/users/register"
+    //let token = localStorage.getItem('jwtToken') || '';
+    const user = "hayoon0524"
+    async function getInfo() {
+        try {
+            const response = await axios.get('http://localhost:8000/users/' + user, {
+                data: {
+                    id: user
+                },
+                //headers: {
+                 //   'Authorization' : token,
+                //}
+            }).then(res => {
+                console.log(res);
+            });
+        } catch (error) {
+            //응답 실패
+            console.error(error);
+        }
     }
+    getInfo();
     return (
         <div className={styles.main}>
             <Title text="마이페이지"></Title>
@@ -34,6 +54,7 @@ function MyPage() {
                     <div id="one" className = {styles.one}>
                         <div className={styles.row}>
                             <h4 className={styles.text}>아이디 : </h4>
+                            <p></p>
                         </div>
                         <div className={styles.row}>
                             <h4 className={styles.text}>이메일 : </h4>
@@ -44,7 +65,10 @@ function MyPage() {
                         <div className={styles.row}>
                             <h4 className={styles.text}>성별 : </h4>
                         </div>
-                        <button className={styles.btn} onClick={edit}>수정</button>
+                        <Link to ="/user/edit">
+                            <button className={styles.btn} >수정</button>
+                        </Link>
+
                     </div>
                     <div id="two" className={styles.two}>
                         <MainCommonTable />

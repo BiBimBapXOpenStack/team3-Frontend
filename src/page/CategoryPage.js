@@ -2,9 +2,26 @@ import React from 'react';
 import MainCommonTable from "../component/table/MainCommonTable";
 import styles from '../css/MainPage.module.css'
 import Title from "../component/Title";
-import axios from "axios";
+import {useParams} from "react-router";
 
-const MainPageLogin = props => {
+const info = {
+    category1 : {
+        title: '카테고리1'
+    },
+    category2 : {
+        title: '카테고리2'
+    },
+    category3 : {
+        title: '카테고리3'
+    },
+    category4 : {
+        title: '카테고리4'
+    },
+
+}
+
+const CategoryPage = props => {
+
 
     function write() {
         window.location.href = "/boards"
@@ -12,23 +29,17 @@ const MainPageLogin = props => {
     function myPage() {
         window.location.href = "/user"
     }
-    function logout() {
-        try {
-            axios.get('http://localhost:8000/users/logout').then()
-        }
-        catch (e) {
-            
-        }
 
-    }
+    const params = useParams();
+    const data = info[params.category];
+
     return (
         <div className={styles.main}>
-            <Title text="BLOG"></Title>
+            <Title text={data.title}></Title>
             <div className={styles.container}>
                 <div className={styles.flex}>
                     <div className={styles.btnRow}>
                         <button className={styles.btn} onClick={myPage}>마이페이지</button>
-                        <button className={styles.btn} onClick={logout}>로그아웃</button>
                     </div>
                     <MainCommonTable pos={styles.pos}/>
                     <button className={styles.btn} onClick={write}>글쓰기</button>
@@ -38,4 +49,4 @@ const MainPageLogin = props => {
     )
 }
 
-export default MainPageLogin;
+export default CategoryPage;
