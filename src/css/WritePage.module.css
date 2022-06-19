@@ -36,7 +36,7 @@
 }
 .imgBlock {
     width: 400px;
-    height: 200px;
+    height: 130px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -48,6 +48,11 @@
     height: 50px;
 }
 .imgView {
-    width: 200px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
+}
+.title {
+    width: 600px;
+    height: 20px;
+    margin-bottom: 20px;
 }

@@ -1,11 +1,25 @@
 import styles from "../css/WritePage.module.css";
 import Title from "../component/Title";
 import {useEffect, useState} from "react";
+import axios from "axios";
 
 function WritePage() {
 
     const [files, setFiles] = useState();
     const [imageSrc, setImageSrc] = useState('');
+    const [title, setTitle] = useState();
+    const [textfield,setTextField] = useState();
+    const [category,setCategory] = useState();
+
+    const handleTitle = (e) => {
+        setTitle(e.target.value)
+    }
+    const handleTextField = (e) => {
+        setTextField(e.target.value)
+    }
+    const handleCategory = (e) => {
+        setCategory(e.target.value)
+    }
     const onLoadFile = (fileBlob) => {
         const reader = new FileReader();
         reader.readAsDataURL(fileBlob);
@@ -15,6 +29,24 @@ function WritePage() {
                 resolve();
             };
         });
+    }
+    async function insertBoard() {
+        console.log("게시판 추가")
+        try {
+            const response = await axios.post('http://localhost:8000/boards', {
+                data: {
+                    u_id: 1,
+                    title: title,
+                    textfield: textfield,
+                    photo: ".",
+                },
+            }).then(res => {
+                console.log(res);
+            });
+        } catch (error) {
+            //응답 실패
+            console.error(error);
+        }
     }
     const handleClick = (e) => {
         const formData = new FormData();
@@ -42,9 +74,10 @@ function WritePage() {
                         }}/>
                         {imageSrc && <img src={imageSrc} alt="preview-img" className={styles.imgView}/>}
                     </div>
-                    <textarea className={styles.textArea}>
+                    <input type={'text'} className={styles.title} onChange={handleTitle}/>
+                    <textarea className={styles.textArea} onChange={handleTextField}>
                     </textarea>
-                    <button className={styles.btn}>submit</button>
+                    <button className={styles.btn} onClick = {insertBoard}>submit</button>
                 </div>
             </div>
         </div>
