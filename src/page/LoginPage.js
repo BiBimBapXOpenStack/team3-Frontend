@@ -39,7 +39,7 @@ function LoginPage() {
                         console.log(response);
                         localStorage.setItem('jwtToken', token.token);
                         setAuthorizationToken(token.token);
-                        window.location.href = "/";
+                        //window.location.href = "/";
                     }
                 });
 
