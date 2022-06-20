@@ -1,13 +1,12 @@
-import styles from "../css/WritePage.module.css";
+import styles from "../css/EditBoardPage.module.css";
 import Title from "../component/Title";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-function WritePage() {
+function EditBoardPage() {
 
     const [files, setFiles] = useState();
     const [imageSrc, setImageSrc] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
     const [title, setTitle] = useState();
     const [textfield,setTextField] = useState();
     const [category,setCategory] = useState();
@@ -26,26 +25,26 @@ function WritePage() {
         reader.readAsDataURL(fileBlob);
         return new Promise((resolve) => {
             reader.onload = () => {
-                console.log(reader.result);
-                setImageSrc(reader.result.data);
+                setImageSrc(reader.result);
                 resolve();
             };
         });
     }
-    let user = localStorage.getItem('id') || ''
+    const user = 'hayoon0524'
     const photo = 'photo'
-    async function insertBoard() {
+    async function editBoard() {
         console.log("게시판 추가")
-        console.log(user)
+        console.log(imageSrc)
+        console.log(title);
         try {
-            const response = await axios.post('http://localhost:8000/boards',
-                {
+            const response = await axios.post('http://localhost:8000/boards', {
+                data: {
                     u_id: user,
                     title: title,
                     textfield: textfield,
-                    photoURL: photo,
+                    photo: photo,
                 },
-            ).then(res => {
+            }).then(res => {
                 console.log(res);
             });
         } catch (error) {
@@ -68,25 +67,19 @@ function WritePage() {
             <div className={styles.container}>
                 <div className={styles.flex}>
                     <div className={styles.row}>
-                        <label><input type="checkbox" name="category" value="blue"/>카테고리1</label>
-                        <label><input type="checkbox" name="category" value="red"/>카테고리2</label>
-                        <label><input type="checkbox" name="category" value="red"/>카테고리3</label>
-                        <label><input type="checkbox" name="category" value="red"/>카테고리4</label>
+                        <label><input type="checkbox" name="category" value="category1"/>카테고리1</label>
+                        <label><input type="checkbox" name="category" value="category2"/>카테고리2</label>
+                        <label><input type="checkbox" name="category" value="category3"/>카테고리3</label>
+                        <label><input type="checkbox" name="category" value="category4"/>카테고리4</label>
                     </div>
-                    <div className={styles.imgBlock}>
-                        <input type='file' className={styles.imgInput} accept='image/*' onChange={(e) => {
-                            onLoadFile(e.target.files[0]);
-                        }}/>
-                        {imageSrc && <img src={imageSrc} alt="preview-img" className={styles.imgView}/>}
-                    </div>
-                    <input type={'text'} className={styles.title} onChange={handleTitle}/>
-                    <textarea className={styles.textArea} onChange={handleTextField}>
+                    <input type={'text'} className={styles.title} onChange={handleTitle} value={title}/>
+                    <textarea className={styles.textArea} onChange={handleTextField}>{textfield}
                     </textarea>
-                    <button className={styles.btn} onClick = {insertBoard}>submit</button>
+                    <button className={styles.btn} onClick = {editBoard}>submit</button>
                 </div>
             </div>
         </div>
     )
 }
 
-export default WritePage;
+export default EditBoardPage;

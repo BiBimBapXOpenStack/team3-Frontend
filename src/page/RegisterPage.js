@@ -1,6 +1,5 @@
 import styles from '../css/RegisterPage.module.css'
 import Title from "../component/Title";
-import {useLocation} from "react-router";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {useDispatch} from 'react-redux';
@@ -44,19 +43,21 @@ function RegisterPage({props}) {
             console.log("회원가입")
             let data = {
                 id: id,
-                name: name,
+                uname: name,
                 pw: pw,
                 email: email,
             }
             try {
                 dispatch(registerUser(data))
                     .then(response => {
+                        console.log(response.payload)
                         if (!response.payload.status) {
-                            togglePopup("ERROR")
+                            togglePopup("회원가입 실패")
                         }
                         else {
                             togglePopup("회원가입 성공")
-                            window.location.href = "/";
+
+                            //window.location.href = "/";
                         }
                     });
 
@@ -126,10 +127,7 @@ function RegisterPage({props}) {
                         <label for="name" className={styles.label}>이름</label>
                         <input id="name" className={styles.text} type='text' value={name} onChange={handleName}/>
                     </div>
-                    <div className={styles.inputRow}>
-                        <label for="gender" className={styles.label}>성별</label>
-                        <input id="gender" className={styles.text} type='text' value={gender} onChange={handleGender}/>
-                    </div>
+
                     <button className={styles.registerBtn} onClick={register}>회원가입</button>
                 </div>
             </div>

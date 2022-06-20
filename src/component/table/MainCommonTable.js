@@ -2,40 +2,61 @@ import React from 'react';
 import CommonTable from './CommonTable';
 import CommonTableColumn from './CommonTableColumn';
 import CommonTableRow from './CommonTableRow';
+import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import styles from "../../css/Component.module.css";
+
+
 
 const MainCommonTable = props => {
+    const [datalist, setDatalist] = useState([]);
+    const [url, setURL] = useState([]);
+    let urllist =new Array();
+    let user = localStorage.getItem('id') || '';
+
+
+    useEffect(() => {
+        const b_id = '1'
+        const page = '1';
+        async function getBoardInfo() {
+
+            try {
+                const response = await axios.get('http://localhost:8000/boards/' +page, {
+                }).then(res => {
+                    console.log(res);
+                    setDatalist(res.data);
+                    res.data.map((row,index)=>{
+                        url.push('boards/one/'+row.bid);
+                        console.log(url[index]);
+                    })
+                });
+            } catch (error) {
+                //응답 실패
+                console.error(error);
+            }
+        }
+        getBoardInfo();
+    },[]);
+
     return (
-        <CommonTable headersName={['글번호', '아이디', '제목', '등록일']} pos = {props.pos}>
-            <CommonTableRow>
-                <CommonTableColumn>1</CommonTableColumn>
-                <CommonTableColumn>1234</CommonTableColumn>
-                <CommonTableColumn>첫번째 게시글입니다.</CommonTableColumn>
-                <CommonTableColumn>2020-10-25</CommonTableColumn>
-            </CommonTableRow>
-            <CommonTableRow>
-                <CommonTableColumn>2</CommonTableColumn>
-                <CommonTableColumn>1111</CommonTableColumn>
-                <CommonTableColumn>두번째 게시글입니다.</CommonTableColumn>
-                <CommonTableColumn>2020-10-25</CommonTableColumn>
-            </CommonTableRow>
-            <CommonTableRow>
-                <CommonTableColumn>3</CommonTableColumn>
-                <CommonTableColumn>hh</CommonTableColumn>
-                <CommonTableColumn>세번째 게시글입니다.</CommonTableColumn>
-                <CommonTableColumn>2020-10-25</CommonTableColumn>
-            </CommonTableRow>
-            <CommonTableRow>
-                <CommonTableColumn>4</CommonTableColumn>
-                <CommonTableColumn>ii</CommonTableColumn>
-                <CommonTableColumn>네번째 게시글입니다.</CommonTableColumn>
-                <CommonTableColumn>2020-10-25</CommonTableColumn>
-            </CommonTableRow>
-            <CommonTableRow>
-                <CommonTableColumn>5</CommonTableColumn>
-                <CommonTableColumn>kk</CommonTableColumn>
-                <CommonTableColumn>다섯번째 게시글입니다.</CommonTableColumn>
-                <CommonTableColumn>2020-10-25</CommonTableColumn>
-            </CommonTableRow>
+        <CommonTable headersName={['글번호', '아이디', '제목', '등록일']} pos={props.pos}>
+            {
+
+            datalist.map((row,index) => (
+                <CommonTableRow>
+                    {/*{setURL('boards/one/' + row.bid)}*/}
+                    <CommonTableColumn>{row.bid}</CommonTableColumn>
+                    <CommonTableColumn>{row.u_id}</CommonTableColumn>
+                    <CommonTableColumn>{row.title}</CommonTableColumn>
+                    <CommonTableColumn>{row.enter_date}</CommonTableColumn>
+                    <button onClick = { () => {
+                        window.location.href = url[index]
+                    }}>게시물 보기</button>
+                </CommonTableRow>
+            ))
+            }
+
         </CommonTable>
     )
 }

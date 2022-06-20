@@ -3,8 +3,10 @@ import MainCommonTable from "../component/table/MainCommonTable";
 import styles from '../css/MainPage.module.css'
 import Title from "../component/Title";
 import axios from "axios";
+import PageNum from "../component/PageNum";
 
 const MainPageLogin = props => {
+
 
     function write() {
         window.location.href = "/boards"
@@ -14,7 +16,15 @@ const MainPageLogin = props => {
     }
     function logout() {
         try {
-            axios.get('http://localhost:8000/users/logout').then()
+            axios.get('http://localhost:8000/users/logout')
+                .then(res => {
+                    console.log(res);
+                    if (res.data) {
+                        localStorage.removeItem('id');
+                        window.location.href = "/";
+                    }
+                }
+            )
         }
         catch (e) {
             

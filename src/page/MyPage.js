@@ -31,8 +31,12 @@ function MyPage() {
     const [gender, setGender] = useState('')
     const [showPopup, setShowPopup] = useState(false)
     const [text, setText] = useState("")
-    //let token = localStorage.getItem('jwtToken') || '';
-    const user = "hayoon0524"
+
+    function togglePopup(t) {
+        setText(t);
+        setShowPopup(!showPopup)
+    }
+    let user = localStorage.getItem('id') || ''
     useEffect(() => {
         async function getInfo() {
 
@@ -57,6 +61,17 @@ function MyPage() {
         }
         getInfo();
     },[]);
+    async function deleteUser() {
+        try {
+            //응답 성공
+            const response = await axios.delete('http://localhost:8000/users/' + user);
+            console.log(response.data);
+            togglePopup("회원탈퇴 되었습니다");
+        } catch (error) {
+            //응답 실패
+            console.error(error);
+        }
+    }
     return (
         <div className={styles.main}>
             <Title text="마이페이지"></Title>
@@ -66,23 +81,31 @@ function MyPage() {
                     <div id="one" className = {styles.one}>
                         <div className={styles.row}>
                             <h4 className={styles.text}>아이디 :</h4>
-                            <p>{id}</p>
+                            <p className={styles.p}>{id}</p>
                         </div>
                         <div className={styles.row}>
                             <h4 className={styles.text}>이메일 :</h4>
-                            <p>{email}</p>
+                            <p className={styles.p}>{email}</p>
                         </div>
                         <div className={styles.row}>
                             <h4 className={styles.text}>이름 :</h4>
-                            <p>{name}</p>
+                            <p className={styles.p}>{name}</p>
                         </div>
                         <div className={styles.row}>
-                            <h4 className={styles.text}>성별 :</h4>
-                            <p>{gender}</p>
+                            <Link to ="/user/edit">
+                                <button className={styles.btn} >수정</button>
+                            </Link>
+                            <button className={styles.btn} onClick={deleteUser}>  회원탈퇴  </button>
+                            {showPopup ? (
+                                <div className={styles.popup}>
+                                    <p>{text}</p>
+                                    <button className="close" onClick={togglePopup}>
+                                        Close me
+                                    </button>
+                                </div>
+                            ) : null}
+
                         </div>
-                        <Link to ="/user/edit">
-                            <button className={styles.btn} >수정</button>
-                        </Link>
 
                     </div>
                     <div id="two" className={styles.two}>
@@ -93,4 +116,4 @@ function MyPage() {
         </div>
     )
 }
-export default MyPage
+export default MyPage;

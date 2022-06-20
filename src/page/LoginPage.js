@@ -38,8 +38,9 @@ function LoginPage() {
                         const token = response.payload.token;
                         console.log(response);
                         localStorage.setItem('jwtToken', token.token);
+                        localStorage.setItem('id',response.payload.id);
                         setAuthorizationToken(token.token);
-                        //window.location.href = "/";
+                        window.location.href = "/"+id;
                     }
                 });
 

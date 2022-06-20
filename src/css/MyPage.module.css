@@ -46,9 +46,25 @@
     display: block;
     width: 100px;
     height: 25px;
+    margin-left: 10px;
 }
 
-p {
+.p {
     display: block;
-    width: 30px;
+    width: 50px;
+}
+.popup {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: lightslategrey;
+    border-radius: 30px;
+    position: fixed;
 }

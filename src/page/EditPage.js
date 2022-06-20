@@ -32,8 +32,7 @@ function EditPage() {
         setGender(e.target.value)
     }
 
-    //let token = localStorage.getItem('jwtToken') || '';
-    const user = "hayoon0524"
+    let user = localStorage.getItem('id') || '';
     useEffect(() => {
         async function getInfo() {
 
@@ -60,18 +59,15 @@ function EditPage() {
     },[]);
     async function edit() {
         console.log("수정")
+        let data = {
+            id: user,
+            pw: pw,
+            name: name,
+            email: email,
+        }
         try {
-            const response = await axios.put('http://localhost:8000/users', {
-                data: {
-                    id: user,
-                    name: name,
-                    pw: pw,
-                    email: email,
-                },
-                //headers: {
-                //   'Authorization' : token,
-                //}
-            }).then(res => {
+            const response = await axios.put('http://localhost:8000/users', data)
+                .then(res => {
                 console.log(res);
             });
         } catch (error) {
@@ -105,10 +101,7 @@ function EditPage() {
                         <label for="name" className={styles.label}>이름</label>
                         <input id="name" className={styles.text} type='text' value={name} onChange={handleName}/>
                     </div>
-                    <div className={styles.inputRow}>
-                        <label for="gender" className={styles.label}>성별</label>
-                        <input id="gender" className={styles.text} type='text'/>
-                    </div>
+
                     <button className={styles.editBtn} onClick={edit}>수정</button>
                 </div>
             </div>
