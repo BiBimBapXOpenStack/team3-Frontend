@@ -51,8 +51,8 @@ function WritePage() {
                 'Content-Type': 'multipart/form-data'
             }}
             ).then(res => {
-                console.log(res);
-                insertBoard(res);
+                //console.log(res.data);
+                insertBoard(res.data);
             });
         } catch (error) {
             //응답 실패
@@ -62,6 +62,7 @@ function WritePage() {
     }
     async function insertBoard(file)
     {
+        console.log(file)
         try {
             const response = await axios.post('http://localhost:8000/boards',
                 {
