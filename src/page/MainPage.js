@@ -4,6 +4,7 @@ import styles from '../css/MainPage.module.css'
 import Title from "../component/Title";
 
 const MainPage = props => {
+    console.log("main called")
     function login(e) {
         window.location.href = "/user/login"
     }

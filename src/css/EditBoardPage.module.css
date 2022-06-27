@@ -56,3 +56,18 @@
     height: 20px;
     margin-bottom: 20px;
 }
+.popup {
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: lightslategrey;
+    border-radius: 30px;
+    position: fixed;
+}

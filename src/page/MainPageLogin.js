@@ -7,7 +7,7 @@ import PageNum from "../component/PageNum";
 
 const MainPageLogin = props => {
 
-
+    console.log("main called")
     function write() {
         window.location.href = "/boards"
     }

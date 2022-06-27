@@ -1,13 +1,14 @@
 import styles from "../css/MyPage.module.css";
 import Title from "../component/Title";
 import {useState, useEffect} from "react";
-import MainCommonTable from "../component/table/MainCommonTable";
+import MyCommonTable from "../component/table/MyCommonTable";
 import {Link} from 'react-router-dom'
 import axios from "axios";
 import setAuthorizationToken from "../router/setAuthorizationToken";
 
 function MyPage() {
-    const [page, setPage] = useState(true);
+    console.log("main called")
+    const [page, setPage] = useState(false);
     const pageChange = () => {
         setPage(!page);
         display();
@@ -109,7 +110,7 @@ function MyPage() {
 
                     </div>
                     <div id="two" className={styles.two}>
-                        <MainCommonTable />
+                        <MyCommonTable />
                     </div>
                 </div>
             </div>

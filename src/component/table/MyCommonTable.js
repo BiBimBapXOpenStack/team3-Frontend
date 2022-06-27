@@ -9,7 +9,7 @@ import styles from "../../css/Component.module.css";
 
 
 
-const MainCommonTable = props => {
+const MyCommonTable = props => {
     const [datalist, setDatalist] = useState([]);
     const [url, setURL] = useState([]);
     let urllist =new Array();
@@ -17,11 +17,12 @@ const MainCommonTable = props => {
 
 
     useEffect(() => {
-        const page = '1';
+        let user = localStorage.getItem('id') || '';
         async function getBoardInfo() {
 
             try {
-                const response = await axios.get('http://localhost:8000/boards/' +page, {
+                const response = await axios.get('http://localhost:8000/boards/user/' + user,{
+
                 }).then(res => {
                     console.log(res);
                     setDatalist(res.data);
@@ -42,22 +43,22 @@ const MainCommonTable = props => {
         <CommonTable headersName={['글번호', '아이디', '제목', '등록일']} pos={props.pos}>
             {
 
-            datalist.map((row,index) => (
-                <CommonTableRow>
-                    {/*{setURL('boards/one/' + row.bid)}*/}
-                    <CommonTableColumn>{row.bid}</CommonTableColumn>
-                    <CommonTableColumn>{row.u_id}</CommonTableColumn>
-                    <CommonTableColumn>{row.title}</CommonTableColumn>
-                    <CommonTableColumn>{row.enter_date}</CommonTableColumn>
-                    <button onClick = { () => {
-                        window.location.href = url[index]
-                    }}>게시물 보기</button>
-                </CommonTableRow>
-            ))
+                datalist.map((row,index) => (
+                    <CommonTableRow>
+                        {/*{setURL('boards/one/' + row.bid)}*/}
+                        <CommonTableColumn>{row.bid}</CommonTableColumn>
+                        <CommonTableColumn>{row.u_id}</CommonTableColumn>
+                        <CommonTableColumn>{row.title}</CommonTableColumn>
+                        <CommonTableColumn>{row.enter_date}</CommonTableColumn>
+                        <button onClick = { () => {
+                            window.location.href = url[index]
+                        }}>게시물 보기</button>
+                    </CommonTableRow>
+                ))
             }
 
         </CommonTable>
     )
 }
 
-export default MainCommonTable;
+export default MyCommonTable;

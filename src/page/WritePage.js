@@ -5,7 +5,7 @@ import axios from "axios";
 
 function WritePage() {
 
-    const [files, setFiles] = useState();
+    const [file, setFile] = useState();
     const [imageSrc, setImageSrc] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [title, setTitle] = useState();
@@ -24,27 +24,53 @@ function WritePage() {
     const onLoadFile = (fileBlob) => {
         const reader = new FileReader();
         reader.readAsDataURL(fileBlob);
+        console.log(fileBlob);
+        setFile(fileBlob);
         return new Promise((resolve) => {
             reader.onload = () => {
                 console.log(reader.result);
-                setImageSrc(reader.result.data);
+                setImageSrc(reader.result);
                 resolve();
             };
         });
     }
     let user = localStorage.getItem('id') || ''
     const photo = 'photo'
-    async function insertBoard() {
+    async function insertImage() {
         console.log("게시판 추가")
-        console.log(user)
+        console.log(file);
+        const img = new FormData();
+        img.append("file", file);
+        for (const value of img.values()){
+            console.log(value);
+        }
+        try {
+            const response = await axios.post('http://localhost:8000/boards/image',
+                img,
+                {headers: {
+                'Content-Type': 'multipart/form-data'
+            }}
+            ).then(res => {
+                console.log(res);
+                insertBoard(res);
+            });
+        } catch (error) {
+            //응답 실패
+            console.error(error);
+        }
+
+    }
+    async function insertBoard(file)
+    {
         try {
             const response = await axios.post('http://localhost:8000/boards',
                 {
                     u_id: user,
                     title: title,
                     textfield: textfield,
-                    photoURL: photo,
+                    photoURL : file,
                 },
+                //
             ).then(res => {
                 console.log(res);
             });
@@ -52,15 +78,6 @@ function WritePage() {
             //응답 실패
             console.error(error);
         }
-    }
-    const handleClick = (e) => {
-        const formData = new FormData();
-        formData.append('uploadImage', files[0]);
-        const config = {
-            Headers: {
-                'content-type': 'multipart/form-data',
-            },
-        };
     }
     return (
         <div className={styles.main}>
@@ -82,7 +99,7 @@ function WritePage() {
                     <input type={'text'} className={styles.title} onChange={handleTitle}/>
                     <textarea className={styles.textArea} onChange={handleTextField}>
                     </textarea>
-                    <button className={styles.btn} onClick = {insertBoard}>submit</button>
+                    <button className={styles.btn} onClick = {insertImage}>submit</button>
                 </div>
             </div>
         </div>

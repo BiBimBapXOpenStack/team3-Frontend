@@ -8,6 +8,7 @@ import setAuthorizationToken from "../router/setAuthorizationToken";
 
 
 function LoginPage() {
+    console.log("main called")
     const dispatch = useDispatch();
     const [id, setId] = useState('')
     const [pw, setPw] = useState('')

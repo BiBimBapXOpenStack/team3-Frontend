@@ -7,7 +7,7 @@
     justify-content: center;
 }
 .container {
-    margin-top: 100px;
+    margin-top: 50px;
     width: 1000px;
     height: 500px;
 }
@@ -18,15 +18,15 @@
     flex-direction: column;
 }
 .row {
-    width: 400px;
+    width: 600px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     align-items: center;
+    justify-content: flex-end;
 }
 .imgBlock {
     width: 400px;
-    height: 130px;
+    height: 100px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -48,15 +48,26 @@
 .textField{
     display: block;
     width: 600px;
-    height: 400px;
+    height: 350px;
+    border: 1px solid black;
+
 }
 
 .title {
     display: block;
-    width: 100px;
+    width: 600px;
     margin-bottom: 40px;
+    text-align: center;
 }
-.uid {
-    display:block;
+
+.pp {
+    margin-left: 40px;
+}
+
+.editBtn {
+    margin-top: 10px;
+    display: block;
     width: 100px;
+    height: 25px;
+    margin-bottom: 10px;
 }
