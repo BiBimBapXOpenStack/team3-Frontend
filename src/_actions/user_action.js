@@ -6,7 +6,7 @@ import {
 import setAuthorizationToken from "../router/setAuthorizationToken";
 
 export function loginUser(dataToSubmit) {
-    const request = axios.post('http://localhost:8000/users/login', dataToSubmit )
+    const request = axios.post('http://133.186.150.67:8000/users/login', dataToSubmit )
         .then(response => response.data)
 
     return {
@@ -16,7 +16,7 @@ export function loginUser(dataToSubmit) {
 }
 
 export function registerUser(dataToSubmit) {
-    const request = axios.post('http://localhost:8000/users/register', dataToSubmit )
+    const request = axios.post('http://133.186.150.67:8000/users/register', dataToSubmit )
         .then(response => response.data)
 
     return {

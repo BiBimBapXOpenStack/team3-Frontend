@@ -3,7 +3,6 @@ import MainCommonTable from "../component/table/MainCommonTable";
 import styles from '../css/MainPage.module.css'
 import Title from "../component/Title";
 import axios from "axios";
-import PageNum from "../component/PageNum";
 
 const MainPageLogin = props => {
 
@@ -16,7 +15,7 @@ const MainPageLogin = props => {
     }
     function logout() {
         try {
-            axios.get('http://localhost:8000/users/logout')
+            axios.get('http://133.186.150.67:8000/users/logout')
                 .then(res => {
                     console.log(res);
                     if (res.data) {
@@ -33,7 +32,7 @@ const MainPageLogin = props => {
     }
     return (
         <div className={styles.main}>
-            <Title text="BLOG"></Title>
+            <Title text="메인페이지"></Title>
             <div className={styles.container}>
                 <div className={styles.flex}>
                     <div className={styles.btnRow}>

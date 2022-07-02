@@ -55,9 +55,9 @@ function RegisterPage({props}) {
                             togglePopup("회원가입 실패")
                         }
                         else {
-                            togglePopup("회원가입 성공")
+                            alert("회원가입 성공")
 
-                            //window.location.href = "/";
+                            window.location.href = "/user/login";
                         }
                     });
 
@@ -76,7 +76,7 @@ function RegisterPage({props}) {
     async function idCheck() {
         try {
             //응답 성공
-            const response = await axios.get('http://localhost:8000/users/register/' + id);
+            const response = await axios.get('http://133.186.150.67:8000/users/register/' + id);
             console.log(response.data);
             togglePopup(response.data.message);
         } catch (error) {
