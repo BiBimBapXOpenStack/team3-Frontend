@@ -76,7 +76,7 @@ function RegisterPage({props}) {
     async function idCheck() {
         try {
             //응답 성공
-            const response = await axios.get('133.186.150.67:8000/users/register/' + id);
+            const response = await axios.get('http://133.186.150.67:8000/users/register/' + id);
             console.log(response.data);
             togglePopup(response.data.message);
         } catch (error) {
