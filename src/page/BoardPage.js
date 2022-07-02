@@ -38,7 +38,7 @@ function BoardPage() {
     async function getBoardInfo() {
         try {
             const bb = parseInt(bid);
-            const response = await axios.get('http://localhost:8000/boards/board/' + bid, {
+            const response = await axios.get('http://133.186.150.67:8000/boards/board/' + bid, {
                 data: {
                     b_id: bb,
                 },
@@ -58,7 +58,7 @@ function BoardPage() {
     async function getImage() {
         try {
             const bb = parseInt(bid);
-            const response = await axios.get('http://localhost:8000/board/image/' + bid, {
+            const response = await axios.get('http://133.186.150.67:8000/board/image/' + bid, {
                 data: {
                     b_id: bb,
                 },

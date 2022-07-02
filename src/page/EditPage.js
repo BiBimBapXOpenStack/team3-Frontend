@@ -46,7 +46,7 @@ function EditPage() {
         async function getInfo() {
 
             try {
-                const response = await axios.get('http://localhost:8000/users/' + user, {
+                const response = await axios.get('http://133.186.150.67:8000/users/' + user, {
                     data: {
                         id: user
                     },
@@ -77,7 +77,7 @@ function EditPage() {
                 email: email,
             }
             try {
-                const response = await axios.put('http://localhost:8000/users', data)
+                const response = await axios.put('http://133.186.150.67:8000/users', data)
                     .then(res => {
                         console.log(res);
                         console.log(res.data.code);
@@ -100,7 +100,7 @@ function EditPage() {
     async function deleteUser() {
         try {
             //응답 성공
-            const response = await axios.delete('http://localhost:8000/users/' + user);
+            const response = await axios.delete('http://133.186.150.67:8000/users/' + user);
             console.log(response.data);
             alert("회원탈퇴 되었습니다");
             window.location.href = "/";

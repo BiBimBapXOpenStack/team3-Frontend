@@ -42,7 +42,7 @@ function MyPage() {
         async function getInfo() {
 
             try {
-                const response = await axios.get('http://localhost:8000/users/' + user, {
+                const response = await axios.get('http://133.186.150.67:8000/users/' + user, {
                     data: {
                         id: user
                     },

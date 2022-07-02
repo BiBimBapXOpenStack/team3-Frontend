@@ -15,7 +15,7 @@ const MainPageLogin = props => {
     }
     function logout() {
         try {
-            axios.get('http://localhost:8000/users/logout')
+            axios.get('http://133.186.150.67:8000/users/logout')
                 .then(res => {
                     console.log(res);
                     if (res.data) {
