@@ -21,7 +21,7 @@ const MainCommonTable = props => {
         async function getBoardInfo() {
 
             try {
-                const response = await axios.get('http://localhost:8000/boards/' +page, {
+                const response = await axios.get('http://133.186.150.67:8000/boards/' +page, {
                 }).then(res => {
                     console.log(res);
                     setDatalist(res.data);
