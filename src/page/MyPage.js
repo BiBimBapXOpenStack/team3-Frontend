@@ -62,17 +62,6 @@ function MyPage() {
         }
         getInfo();
     },[]);
-    async function deleteUser() {
-        try {
-            //응답 성공
-            const response = await axios.delete('http://localhost:8000/users/' + user);
-            console.log(response.data);
-            togglePopup("회원탈퇴 되었습니다");
-        } catch (error) {
-            //응답 실패
-            console.error(error);
-        }
-    }
     return (
         <div className={styles.main}>
             <Title text="마이페이지"></Title>
@@ -96,21 +85,12 @@ function MyPage() {
                             <Link to ="/user/edit">
                                 <button className={styles.btn} >수정</button>
                             </Link>
-                            <button className={styles.btn} onClick={deleteUser}>  회원탈퇴  </button>
-                            {showPopup ? (
-                                <div className={styles.popup}>
-                                    <p>{text}</p>
-                                    <button className="close" onClick={togglePopup}>
-                                        Close me
-                                    </button>
-                                </div>
-                            ) : null}
 
                         </div>
 
                     </div>
                     <div id="two" className={styles.two}>
-                        <MyCommonTable />
+                        <MyCommonTable/>
                     </div>
                 </div>
             </div>

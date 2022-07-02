@@ -24,8 +24,6 @@ function WritePage() {
     const onLoadFile = (fileBlob) => {
         const reader = new FileReader();
         reader.readAsDataURL(fileBlob);
-        console.log(fileBlob);
-        setFile(fileBlob);
         return new Promise((resolve) => {
             reader.onload = () => {
                 console.log(reader.result);
@@ -85,19 +83,13 @@ function WritePage() {
             <Title text="글쓰기"></Title>
             <div className={styles.container}>
                 <div className={styles.flex}>
-                    <div className={styles.row}>
-                        <label><input type="checkbox" name="category" value="blue"/>카테고리1</label>
-                        <label><input type="checkbox" name="category" value="red"/>카테고리2</label>
-                        <label><input type="checkbox" name="category" value="red"/>카테고리3</label>
-                        <label><input type="checkbox" name="category" value="red"/>카테고리4</label>
-                    </div>
+                    <input type={'text'} placeholder={"제목"} className={styles.title} onChange={handleTitle}/>
                     <div className={styles.imgBlock}>
                         <input type='file' className={styles.imgInput} accept='image/*' onChange={(e) => {
                             onLoadFile(e.target.files[0]);
                         }}/>
                         {imageSrc && <img src={imageSrc} alt="preview-img" className={styles.imgView}/>}
                     </div>
-                    <input type={'text'} className={styles.title} onChange={handleTitle}/>
                     <textarea className={styles.textArea} onChange={handleTextField}>
                     </textarea>
                     <button className={styles.btn} onClick = {insertImage}>submit</button>
@@ -108,3 +100,10 @@ function WritePage() {
 }
 
 export default WritePage;
+
+// <div className={styles.row}>
+//     <label><input type="checkbox" name="category" value="blue"/>카테고리1</label>
+//     <label><input type="checkbox" name="category" value="red"/>카테고리2</label>
+//     <label><input type="checkbox" name="category" value="red"/>카테고리3</label>
+//     <label><input type="checkbox" name="category" value="red"/>카테고리4</label>
+// </div>

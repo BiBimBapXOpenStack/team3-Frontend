@@ -15,7 +15,7 @@ const MainPage = props => {
 
     return (
         <div className={styles.main}>
-            <Title text="BLOG"></Title>
+            <Title text="메인페이지"></Title>
             <div className={styles.container}>
                 <div className={styles.flex}>
                     <div className={styles.btnRow}>

@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router";
 import {render} from "react-dom";
+import {Buffer} from "buffer";
 
 const info = {
     1: {
@@ -22,12 +23,18 @@ function BoardPage() {
     const [textfield, setTextField] = useState('');
     const [date, setDate] = useState('');
     const [category, setCategory] = useState('');
+    let formData = new FormData();
 
     useEffect(() => {
         setBID(params.bid);
         console.log(params.bid);
     }, []);
+    useEffect(() => {
+        getBoardInfo();
+        getImage();
+    }, [bid]);
     let user = localStorage.getItem('id') || ''
+
     async function getBoardInfo() {
         try {
             const bb = parseInt(bid);
@@ -47,11 +54,39 @@ function BoardPage() {
             console.error(error);
         }
     }
-    getBoardInfo();
 
-    function edit() {
-        window.location.href = "/"+user+"/boards/edit/"+bid;
+    async function getImage() {
+        try {
+            const bb = parseInt(bid);
+            const response = await axios.get('http://localhost:8000/board/image/' + bid, {
+                data: {
+                    b_id: bb,
+                },
+                responseType :'arraybuffer'
+            }).then(res => {
+                const buffer64 = Buffer.from(res.data, 'binary').toString('base64');
+                setImageSrc("data:" + res.headers["content-type"] + ";base64,"+buffer64);
+            });
+        } catch (error) {
+            //응답 실패
+            console.error(error);
+        }
     }
+    const onLoadFile = (fileBlob) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(fileBlob);
+        return new Promise((resolve) => {
+            reader.onload = () => {
+                console.log(reader.result);
+                setImageSrc(reader.result);
+                resolve();
+            };
+        });
+    }
+    function edit() {
+        window.location.href = "/" + user + "/boards/edit/" + bid;
+    }
+
     return (
         <div className={styles.main}>
             <Title text="게시글"></Title>
