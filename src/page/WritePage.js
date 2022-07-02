@@ -24,6 +24,7 @@ function WritePage() {
     const onLoadFile = (fileBlob) => {
         const reader = new FileReader();
         reader.readAsDataURL(fileBlob);
+        setFile(fileBlob);
         return new Promise((resolve) => {
             reader.onload = () => {
                 console.log(reader.result);
