@@ -41,7 +41,7 @@ function LoginPage() {
                         localStorage.setItem('jwtToken', token.token);
                         localStorage.setItem('id',response.payload.id);
                         setAuthorizationToken(token.token);
-                        window.location.href = "/"+id;
+                        window.location.href = "/main";
                     }
                 });
 
