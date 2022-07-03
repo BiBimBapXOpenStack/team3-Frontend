@@ -5,6 +5,8 @@ import axios from "axios";
 import {useParams} from "react-router";
 import {render} from "react-dom";
 import {Buffer} from "buffer";
+import {api} from "../Config";
+import {api2} from "../Config"
 
 const info = {
     1: {
@@ -38,7 +40,7 @@ function BoardPage() {
     async function getBoardInfo() {
         try {
             const bb = parseInt(bid);
-            const response = await axios.get('http://133.186.150.67:8000/boards/board/' + bid, {
+            const response = await axios.get(api + '/boards/board/' + bid, {
                 data: {
                     b_id: bb,
                 },
@@ -58,7 +60,7 @@ function BoardPage() {
     async function getImage() {
         try {
             const bb = parseInt(bid);
-            const response = await axios.get('http://133.186.150.67:8000/board/image/' + bid, {
+            const response = await axios.get(api + '/board/image/' + bid, {
                 data: {
                     b_id: bb,
                 },

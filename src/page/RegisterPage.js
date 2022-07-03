@@ -4,6 +4,7 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import {useDispatch} from 'react-redux';
 import {registerUser} from "../_actions/user_action";
+import {api, api2} from "../Config";
 
 function RegisterPage({props}) {
     const dispatch = useDispatch();
@@ -76,7 +77,7 @@ function RegisterPage({props}) {
     async function idCheck() {
         try {
             //응답 성공
-            const response = await axios.get('http://133.186.150.67:8000/users/register/' + id);
+            const response = await axios.get(api + '/users/register/' + id);
             console.log(response.data);
             togglePopup(response.data.message);
         } catch (error) {

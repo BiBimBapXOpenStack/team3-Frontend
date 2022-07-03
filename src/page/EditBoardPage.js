@@ -3,6 +3,7 @@ import Title from "../component/Title";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router";
+import {api, api2} from "../Config";
 
 function EditBoardPage() {
     const params = useParams();
@@ -53,7 +54,7 @@ function EditBoardPage() {
     async function getBoardInfo(bid) {
         try {
             const bb = parseInt(bid);
-            const response = await axios.get('http://133.186.150.67:8000/boards/board/' + bid, {
+            const response = await axios.get(api + '/boards/board/' + bid, {
                 data: {
                     b_id: bb,
                 },
@@ -75,7 +76,7 @@ function EditBoardPage() {
         console.log(imageSrc)
         console.log(title);
         try {
-            const response = await axios.put('http://133.186.150.67:8000/boards', {
+            const response = await axios.put(api + '/boards', {
                     title: title,
                     textfield: textfield,
                     photo: photo,
@@ -102,7 +103,7 @@ function EditBoardPage() {
     async function deleteBoard() {
         try {
             //응답 성공
-            const response = await axios.delete('http://133.186.150.67:8000/boards/' + bid);
+            const response = await axios.delete(api + '/boards/' + bid);
             console.log(response.data);
             togglePopup("게시글 삭제되었습니다.");
         } catch (error) {

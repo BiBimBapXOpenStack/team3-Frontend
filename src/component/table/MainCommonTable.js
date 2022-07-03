@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import styles from "../../css/Component.module.css";
+import {api, api2} from "../../Config";
 
 
 
@@ -21,7 +22,7 @@ const MainCommonTable = props => {
         async function getBoardInfo() {
 
             try {
-                const response = await axios.get('http://133.186.150.67:8000/boards/' +page, {
+                const response = await axios.get(api + '/boards/' +page, {
                 }).then(res => {
                     console.log(res);
                     setDatalist(res.data);

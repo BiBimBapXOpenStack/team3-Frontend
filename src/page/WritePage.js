@@ -2,6 +2,7 @@ import styles from "../css/WritePage.module.css";
 import Title from "../component/Title";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {api, api2} from "../Config";
 
 function WritePage() {
 
@@ -44,7 +45,7 @@ function WritePage() {
             console.log(value);
         }
         try {
-            const response = await axios.post('http://133.186.150.67:8000/boards/image',
+            const response = await axios.post(api + '/boards/image',
                 img,
                 {headers: {
                 'Content-Type': 'multipart/form-data'
@@ -63,7 +64,7 @@ function WritePage() {
     {
         console.log(file)
         try {
-            const response = await axios.post('http://133.186.150.67:8000/boards',
+            const response = await axios.post(api + '/boards',
                 {
                     u_id: user,
                     title: title,
