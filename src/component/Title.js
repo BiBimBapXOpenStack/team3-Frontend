@@ -13,17 +13,10 @@ const Title = props => {
         if(user != '')
         {
             setUrl("/main")
-            // setCategoryURL1("/boards/category1")
-            // setCategoryURL2("/boards/category2")
-            // setCategoryURL3("/boards/category3")
-            // setCategoryURL4("/boards/category4")
+
         }
         else {
             setUrl("/")
-            // setCategoryURL1("/")
-            // setCategoryURL2("/")
-            // setCategoryURL3("/")
-            // setCategoryURL4("/")
         }
     },[])
     return (
