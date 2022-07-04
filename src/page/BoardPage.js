@@ -5,6 +5,8 @@ import axios from "axios";
 import {useParams} from "react-router";
 import {render} from "react-dom";
 import {Buffer} from "buffer";
+import {api} from "../Config";
+import {api2} from "../Config"
 
 const info = {
     1: {
@@ -22,7 +24,6 @@ function BoardPage() {
     const [title, setTitle] = useState('');
     const [textfield, setTextField] = useState('');
     const [date, setDate] = useState('');
-    const [category, setCategory] = useState('');
     let formData = new FormData();
 
     useEffect(() => {
@@ -31,14 +32,13 @@ function BoardPage() {
     }, []);
     useEffect(() => {
         getBoardInfo();
-        getImage();
     }, [bid]);
     let user = localStorage.getItem('id') || ''
 
     async function getBoardInfo() {
         try {
             const bb = parseInt(bid);
-            const response = await axios.get('http://133.186.150.67:8000/boards/board/' + bid, {
+            const response = await axios.get(api + '/boards/board/' + bid, {
                 data: {
                     b_id: bb,
                 },
@@ -48,6 +48,7 @@ function BoardPage() {
                 setTitle(res.data.title);
                 setTextField(res.data.textfield);
                 setDate(res.data.enter_date);
+                getImage(res.data.photoURL);
             });
         } catch (error) {
             //응답 실패
@@ -55,21 +56,24 @@ function BoardPage() {
         }
     }
 
-    async function getImage() {
-        try {
-            const bb = parseInt(bid);
-            const response = await axios.get('http://133.186.150.67:8000/board/image/' + bid, {
-                data: {
-                    b_id: bb,
-                },
-                responseType :'arraybuffer'
-            }).then(res => {
-                const buffer64 = Buffer.from(res.data, 'binary').toString('base64');
-                setImageSrc("data:" + res.headers["content-type"] + ";base64,"+buffer64);
-            });
-        } catch (error) {
-            //응답 실패
-            console.error(error);
+    async function getImage(image) {
+        console.log(image);
+        if (image) {
+            try {
+                const bb = parseInt(bid);
+                const response = await axios.get(api + '/board/image/' + bid, {
+                    data: {
+                        b_id: bb,
+                    },
+                    responseType: 'arraybuffer'
+                }).then(res => {
+                    const buffer64 = Buffer.from(res.data, 'binary').toString('base64');
+                    setImageSrc("data:" + res.headers["content-type"] + ";base64," + buffer64);
+                });
+            } catch (error) {
+                //응답 실패
+                console.error(error);
+            }
         }
     }
     const onLoadFile = (fileBlob) => {

@@ -2,6 +2,7 @@ import styles from '../css/EditPage.module.css'
 import Title from "../component/Title";
 import axios from "axios";
 import {useEffect, useState} from "react";
+import {api, api2} from "../Config";
 
 function EditPage() {
     const [id, setId] = useState('')
@@ -46,7 +47,7 @@ function EditPage() {
         async function getInfo() {
 
             try {
-                const response = await axios.get('http://133.186.150.67:8000/users/' + user, {
+                const response = await axios.get(api + '/users/' + user, {
                     data: {
                         id: user
                     },
@@ -77,7 +78,7 @@ function EditPage() {
                 email: email,
             }
             try {
-                const response = await axios.put('http://133.186.150.67:8000/users', data)
+                const response = await axios.put(api + '/users', data)
                     .then(res => {
                         console.log(res);
                         console.log(res.data.code);
@@ -100,7 +101,7 @@ function EditPage() {
     async function deleteUser() {
         try {
             //응답 성공
-            const response = await axios.delete('http://133.186.150.67:8000/users/' + user);
+            const response = await axios.delete(api + '/users/' + user);
             console.log(response.data);
             alert("회원탈퇴 되었습니다");
             window.location.href = "/";

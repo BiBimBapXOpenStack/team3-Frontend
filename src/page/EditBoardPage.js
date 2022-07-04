@@ -3,6 +3,8 @@ import Title from "../component/Title";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useParams} from "react-router";
+import {api, api2} from "../Config";
+import {Buffer} from "buffer";
 
 function EditBoardPage() {
     const params = useParams();
@@ -13,21 +15,14 @@ function EditBoardPage() {
     const [title, setTitle] = useState('');
     const [textfield,setTextField] = useState('');
     const [category,setCategory] = useState();
-    const [isCalled, setIsCalled] = useState(false);
-
-    console.log("main() called")
+    const [photoURL, setPhotoURL] = useState("");
 
     let user = localStorage.getItem('id') || ''
-    const photo = 'photo';
 
     const handleTitle = (e) => {
         setTitle(e.target.value)
     }
     const handleTextField = (e) => {
-        console.log("handleTextField")
-        console.log(e)
-        console.log(e.target.toString())
-        console.log(e.target.value.toString())
         setTextField(e.target.value)
     }
     const handleCategory = (e) => {
@@ -44,16 +39,17 @@ function EditBoardPage() {
         });
     }
     useEffect(() => {
-        console.log("userEffect() called")
         setBID(params.bid);
         console.log(params.bid);
-
     }, []);
-    if (!isCalled) getBoardInfo(bid);
-    async function getBoardInfo(bid) {
+    useEffect(() => {
+        getBoardInfo();
+    }, [bid]);
+
+    async function getBoardInfo() {
         try {
             const bb = parseInt(bid);
-            const response = await axios.get('http://133.186.150.67:8000/boards/board/' + bid, {
+            const response = await axios.get(api + '/boards/board/' + bid, {
                 data: {
                     b_id: bb,
                 },
@@ -62,7 +58,8 @@ function EditBoardPage() {
                 setId(res.data.u_id);
                 setTitle(res.data.title);
                 setTextField(res.data.textfield);
-                setIsCalled(true);
+                setPhotoURL(res.data.photoURL);
+                getImage(res.data.photoURL);
             });
         } catch (error) {
             //응답 실패
@@ -70,19 +67,41 @@ function EditBoardPage() {
         }
     }
 
+    async function getImage(image) {
+        console.log(image);
+        if (image) {
+            try {
+                const bb = parseInt(bid);
+                const response = await axios.get(api + '/board/image/' + bid, {
+                    data: {
+                        b_id: bb,
+                    },
+                    responseType: 'arraybuffer'
+                }).then(res => {
+                    const buffer64 = Buffer.from(res.data, 'binary').toString('base64');
+                    setImageSrc("data:" + res.headers["content-type"] + ";base64," + buffer64);
+                });
+            } catch (error) {
+                //응답 실패
+                console.error(error);
+            }
+        }
+    }
+
+
     async function editBoard() {
         console.log("게시판 추가")
-        console.log(imageSrc)
-        console.log(title);
+        console.log(photoURL);
         try {
-            const response = await axios.put('http://133.186.150.67:8000/boards', {
+            const response = await axios.put(api + '/boards', {
                     title: title,
                     textfield: textfield,
-                    photo: photo,
+                    photoURL: photoURL,
                     bid: bid,
                 },
             ).then(res => {
                 console.log(res);
+                window.location.href = "/main";
             });
         } catch (error) {
             //응답 실패
@@ -102,9 +121,10 @@ function EditBoardPage() {
     async function deleteBoard() {
         try {
             //응답 성공
-            const response = await axios.delete('http://133.186.150.67:8000/boards/' + bid);
+            const response = await axios.delete(api + '/boards/' + bid);
             console.log(response.data);
             togglePopup("게시글 삭제되었습니다.");
+            window.location.href = "/main";
         } catch (error) {
             //응답 실패
             console.error(error);
@@ -123,16 +143,7 @@ function EditBoardPage() {
             <Title text="글쓰기"></Title>
             <div className={styles.container}>
                 <div className={styles.flex}>
-                    <div className={styles.row}>
-                        <label><input type="checkbox" name="category" value="category1"/>카테고리1</label>
-                        <label><input type="checkbox" name="category" value="category2"/>카테고리2</label>
-                        <label><input type="checkbox" name="category" value="category3"/>카테고리3</label>
-                        <label><input type="checkbox" name="category" value="category4"/>카테고리4</label>
-                    </div>
                     <div className={styles.imgBlock}>
-                        <input type='file' className={styles.imgInput} accept='image/*' onChange={(e) => {
-                            onLoadFile(e.target.files[0]);
-                        }}/>
                         {imageSrc && <img src={imageSrc} alt="preview-img" className={styles.imgView}/>}
                     </div>
                     <input type='text' className={styles.title} onChange={handleTitle} value={title}/>

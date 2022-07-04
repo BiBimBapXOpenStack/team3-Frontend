@@ -5,6 +5,7 @@ import MyCommonTable from "../component/table/MyCommonTable";
 import {Link} from 'react-router-dom'
 import axios from "axios";
 import setAuthorizationToken from "../router/setAuthorizationToken";
+import {api, api2} from "../Config";
 
 function MyPage() {
     console.log("main called")
@@ -42,7 +43,7 @@ function MyPage() {
         async function getInfo() {
 
             try {
-                const response = await axios.get('http://133.186.150.67:8000/users/' + user, {
+                const response = await axios.get(api + '/users/' + user, {
                     data: {
                         id: user
                     },

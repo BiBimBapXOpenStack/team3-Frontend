@@ -3,6 +3,7 @@ import MainCommonTable from "../component/table/MainCommonTable";
 import styles from '../css/MainPage.module.css'
 import Title from "../component/Title";
 import axios from "axios";
+import {api, api2} from "../Config";
 
 const MainPageLogin = props => {
 
@@ -15,7 +16,7 @@ const MainPageLogin = props => {
     }
     function logout() {
         try {
-            axios.get('http://133.186.150.67:8000/users/logout')
+            axios.get(api + '/users/logout')
                 .then(res => {
                     console.log(res);
                     if (res.data) {
