@@ -6,11 +6,11 @@ import {api, api2} from "../Config";
 
 function WritePage() {
 
-    const [file, setFile] = useState();
+    const [file, setFile] = useState("");
     const [imageSrc, setImageSrc] = useState('');
     const [imageUrl, setImageUrl] = useState('');
-    const [title, setTitle] = useState();
-    const [textfield,setTextField] = useState();
+    const [title, setTitle] = useState("");
+    const [textfield,setTextField] = useState("");
     const [category,setCategory] = useState();
 
     const handleTitle = (e) => {
@@ -37,26 +37,37 @@ function WritePage() {
     let user = localStorage.getItem('id') || ''
     const photo = 'photo'
     async function insertImage() {
-        console.log("게시판 추가")
-        console.log(file);
-        const img = new FormData();
-        img.append("file", file);
-        for (const value of img.values()){
-            console.log(value);
+        if (!title && !textfield) {
+            alert("제목과 내용이 없습니다");
+            return;
         }
-        try {
-            const response = await axios.post(api + '/boards/image',
-                img,
-                {headers: {
-                'Content-Type': 'multipart/form-data'
-            }}
-            ).then(res => {
-                //console.log(res.data);
-                insertBoard(res.data);
-            });
-        } catch (error) {
-            //응답 실패
-            console.error(error);
+        if (file) {
+            console.log("게시판 추가")
+            console.log(file);
+            const img = new FormData();
+            img.append("file", file);
+            for (const value of img.values()) {
+                console.log(value);
+            }
+            try {
+                const response = await axios.post(api + '/boards/image',
+                    img,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                ).then(res => {
+                    //console.log(res.data);
+                    insertBoard(res.data);
+                });
+            } catch (error) {
+                //응답 실패
+                console.error(error);
+            }
+        }
+        else {
+            insertBoard();
         }
 
     }
@@ -74,6 +85,7 @@ function WritePage() {
                 //
             ).then(res => {
                 console.log(res);
+                window.location.href = "/main";
             });
         } catch (error) {
             //응답 실패
