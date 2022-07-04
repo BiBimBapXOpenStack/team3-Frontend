@@ -13,7 +13,7 @@ const Title = props => {
         if(user != '')
         {
             setUrl("/main")
-
+            //main
         }
         else {
             setUrl("/")
