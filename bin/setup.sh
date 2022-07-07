@@ -29,8 +29,9 @@ git pull origin develop
 echo "==========================================="
 echo "4. nginx configuration"
 echo "==========================================="
+cd ~
 [ -f /etc/nginx/sites-available/default ] && sudo rm /etc/nginx/sites-available/default
-[ -f /etc/nginx/sites-enabled/default ] && sudo rm /etc/nginx/sites-enabled/default
+sudo rm /etc/nginx/sites-enabled/default
 [ -f /etc/nginx/sites-available/team3-Frontend.conf ] && sudo rm /etc/nginx/sites-available/team3-Frontend.conf
 [ -f /etc/nginx/sites-enabled/team3-Frontend.conf ] && sudo rm /etc/nginx/sites-enabled/team3-Frontend.conf
 cd ~/team3-Frontend/bin;
