@@ -21,7 +21,7 @@ echo "==========================================="
 cd ~
 git config --global user.name "hayoon0524"
 git config --global user.email "posile0524@naver.com"
-[ -d Frontend ] || git clone https://github.com/BiBimBapXOpenStack/team3-Frontend.git
+[ -d team3-Frontend ] || git clone https://github.com/BiBimBapXOpenStack/team3-Frontend.git
 cd ~/team3-Frontend
 git fetch --all
 git pull origin develop
