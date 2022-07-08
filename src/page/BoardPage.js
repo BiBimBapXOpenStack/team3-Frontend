@@ -50,6 +50,7 @@ function BoardPage() {
                 setTextField(res.data.textfield);
                 setDate(res.data.enter_date);
                 setPhotoURL(res.data.photoURL);
+
                 //getImage(res.data.photoURL);
             });
         } catch (error) {
@@ -102,7 +103,7 @@ function BoardPage() {
                     <h3 className={styles.title}>{title}</h3>
                     <div className={styles.row}>
                         <p className={styles.pp}>username: {id}</p>
-                        <p className={styles.pp}>date: {date}</p>
+                        <p className={styles.pp}>date: {photoURL}</p>
                     </div>
                     <div className={styles.imgBlock}>
                         {imageSrc && <img src={photoURL} alt="preview-img" className={styles.imgView}/>}
