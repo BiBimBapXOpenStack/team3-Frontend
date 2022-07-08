@@ -33,6 +33,8 @@ jobs:
             git reset --hard
             git fetch
             git pull
+            cd ~/team3-Frontend
+            npm run build
 
       - name: action-slack
         uses: 8398a7/action-slack@v3
