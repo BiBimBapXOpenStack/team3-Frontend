@@ -106,7 +106,7 @@ function BoardPage() {
                         <p className={styles.pp}>date: {photoURL}</p>
                     </div>
                     <div className={styles.imgBlock}>
-                        {imageSrc && <img src={photoURL} alt="preview-img" className={styles.imgView}/>}
+                        {photoURL && <img src={photoURL} alt="preview-img" className={styles.imgView}/>}
                     </div>
                     <p className={styles.textField}>{textfield}</p>
                     {id == user ?
