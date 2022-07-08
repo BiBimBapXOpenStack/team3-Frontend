@@ -102,7 +102,7 @@ function BoardPage() {
                     <h3 className={styles.title}>{title}</h3>
                     <div className={styles.row}>
                         <p className={styles.pp}>username: {id}</p>
-                        <p className={styles.pp}>date: {photoURL}</p>
+                        <p className={styles.pp}>date: {date}</p>
                     </div>
                     <div className={styles.imgBlock}>
                         {photoURL && <img src={photoURL} alt="preview-img" className={styles.imgView}/>}
