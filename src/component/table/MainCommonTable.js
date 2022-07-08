@@ -24,7 +24,7 @@ const MainCommonTable = props => {
             try {
                 const response = await axios.get(api + '/boards/' +page, {
                 }).then(res => {
-                    console.log(res);
+                    console.log(res.data);
                     setDatalist(res.data);
                     res.data.map((row,index)=>{
                         url.push('boards/one/'+row.bid);

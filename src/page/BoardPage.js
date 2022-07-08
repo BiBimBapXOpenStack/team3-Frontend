@@ -56,6 +56,7 @@ function BoardPage() {
         }
     }
 
+    //
     async function getImage(image) {
         console.log(image);
         if (image) {
