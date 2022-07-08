@@ -19,7 +19,7 @@ jobs:
       - name: Run scripts in server
         uses: appleboy/ssh-action@master
         with:
-          key: ${{ secrets.DEV_SSH_KEY }}
+          key: ${{ secrets.DEV_SSH_KEY_ }}
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.DEV_USER }}
           script: |
@@ -39,3 +39,15 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
         if: always() # Pick up events even if the job fails or is canceled.
+        
+        
+      - name: Report Status
+        if: always()
+        uses: ravsamhq/notify-slack-action@v1
+        with:
+          status: ${{ job.status }}
+          notify_when: 'success'
+          notification_title: '{workflow} has {status_message}'
+          message_format: '{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
