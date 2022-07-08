@@ -23,6 +23,7 @@ function BoardPage() {
     const [id, setId] = useState('');
     const [title, setTitle] = useState('');
     const [textfield, setTextField] = useState('');
+    const [photoURL, setPhotoURL] = useState('');
     const [date, setDate] = useState('');
     let formData = new FormData();
 
@@ -48,7 +49,8 @@ function BoardPage() {
                 setTitle(res.data.title);
                 setTextField(res.data.textfield);
                 setDate(res.data.enter_date);
-                getImage(res.data.photoURL);
+                setPhotoURL(res.data.photoURL);
+                //getImage(res.data.photoURL);
             });
         } catch (error) {
             //응답 실패
@@ -103,7 +105,7 @@ function BoardPage() {
                         <p className={styles.pp}>date: {date}</p>
                     </div>
                     <div className={styles.imgBlock}>
-                        {imageSrc && <img src={imageSrc} alt="preview-img" className={styles.imgView}/>}
+                        {imageSrc && <img src={photoURL} alt="preview-img" className={styles.imgView}/>}
                     </div>
                     <p className={styles.textField}>{textfield}</p>
                     {id == user ?
