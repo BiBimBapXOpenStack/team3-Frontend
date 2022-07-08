@@ -39,25 +39,15 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
         if: always() # Pick up events even if the job fails or is canceled.
-      
-      - name: Run tests
-          # ... your test step here
-      - name: Notify slack success
-        if: success()
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-        uses: voxmedia/github-action-slack-notify-build@v1
+          
+      - name: Report Status
+        uses: ravsamhq/notify-slack-action@v1
+        if: always()
         with:
-          channel: app-alerts
-          status: SUCCESS
-          color: good
-
-      - name: Notify slack fail
-        if: failure()
+          status: ${{ job.status }}
+          notification_title: '{workflow} has {status_message}'
+          message_format: '{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>'
+          footer: 'Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>'
+          notify_when: 'failure'
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-        uses: voxmedia/github-action-slack-notify-build@v1
-        with:
-          channel: app-alerts
-          status: FAILED
-          color: danger
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
