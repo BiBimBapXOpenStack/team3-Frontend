@@ -80,17 +80,17 @@ function BoardPage() {
             }
         }
     }
-    const onLoadFile = (fileBlob) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(fileBlob);
-        return new Promise((resolve) => {
-            reader.onload = () => {
-                console.log(reader.result);
-                setImageSrc(reader.result);
-                resolve();
-            };
-        });
-    }
+    // const onLoadFile = (fileBlob) => {
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(fileBlob);
+    //     return new Promise((resolve) => {
+    //         reader.onload = () => {
+    //             console.log(reader.result);
+    //             setImageSrc(reader.result);
+    //             resolve();
+    //         };
+    //     });
+    // }
     function edit() {
         window.location.href = "/" + user + "/boards/edit/" + bid;
     }
