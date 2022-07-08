@@ -19,7 +19,7 @@ jobs:
       - name: Run scripts in server
         uses: appleboy/ssh-action@master
         with:
-          key: ${{ secrets.DEV_SSH_KEY }}
+          key: ${{ secrets.DEV_SSH_KEY_ }}
           host: ${{ secrets.DEV_HOST }}
           username: ${{ secrets.DEV_USER }}
           script: |
@@ -32,22 +32,32 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          author_name: Sloth Backend - dev
+          author_name: Sloth Frontend - dev
           fields: author,repo,message,job,took,eventName,workflow # action,eventName,ref,workflow,job,took 추가할 수 있음
           mention: here
           if_mention: failure,cancelled
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
         if: always() # Pick up events even if the job fails or is canceled.
-        
-        
-      - name: Report Status
-        if: always()
-        uses: ravsamhq/notify-slack-action@v1
-        with:
-          status: ${{ job.status }}
-          notify_when: 'success'
-          notification_title: '{workflow} has {status_message}'
-          message_format: '{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>'
+      
+      - name: Run tests
+          # ... your test step here
+      - name: Notify slack success
+        if: success()
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: app-alerts
+          status: SUCCESS
+          color: good
+
+      - name: Notify slack fail
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: app-alerts
+          status: FAILED
+          color: danger
