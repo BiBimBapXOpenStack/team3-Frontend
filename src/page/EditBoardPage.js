@@ -47,23 +47,24 @@ function EditBoardPage() {
     }, [bid]);
 
     async function getBoardInfo() {
-        try {
-            const bb = parseInt(bid);
-            const response = await axios.get(api + '/boards/board/' + bid, {
-                data: {
-                    b_id: bb,
-                },
-            }).then(res => {
-                console.log(res);
-                setId(res.data.u_id);
-                setTitle(res.data.title);
-                setTextField(res.data.textfield);
-                setPhotoURL(res.data.photoURL);
-                getImage(res.data.photoURL);
-            });
-        } catch (error) {
-            //응답 실패
-            console.error(error);
+        if(bid != '') {
+            try {
+                const bb = parseInt(bid);
+                const response = await axios.get(api + '/boards/board/' + bid, {
+                    data: {
+                        b_id: bb,
+                    },
+                }).then(res => {
+                    console.log(res);
+                    setId(res.data.u_id);
+                    setTitle(res.data.title);
+                    setTextField(res.data.textfield);
+                    setPhotoURL(res.data.photoURL);
+                });
+            } catch (error) {
+                //응답 실패
+                console.error(error);
+            }
         }
     }
 
@@ -144,7 +145,7 @@ function EditBoardPage() {
             <div className={styles.container}>
                 <div className={styles.flex}>
                     <div className={styles.imgBlock}>
-                        {imageSrc && <img src={imageSrc} alt="preview-img" className={styles.imgView}/>}
+                        {photoURL && <img src={photoURL} alt="preview-img" className={styles.imgView}/>}
                     </div>
                     <input type='text' className={styles.title} onChange={handleTitle} value={title}/>
                     <textarea className={styles.textArea} onChange={handleTextField} value={textfield}/>
