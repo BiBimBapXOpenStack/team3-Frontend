@@ -18,33 +18,31 @@ sudo n lts
 echo "==========================================="
 echo "3. git"
 echo "==========================================="
-cd ~
-git config --global user.name "hayoon0524"
-git config --global user.email "posile0524@naver.com"
+cd
 [ -d team3-Frontend ] || git clone https://github.com/BiBimBapXOpenStack/team3-Frontend.git
-cd ~/team3-Frontend
+cd /team3-Frontend
 git fetch --all
 git pull origin develop
 
 echo "==========================================="
 echo "4. nginx configuration"
 echo "==========================================="
-cd ~
+cd
 [ -f /etc/nginx/sites-available/default ] && sudo rm /etc/nginx/sites-available/default
 sudo rm /etc/nginx/sites-enabled/default
 [ -f /etc/nginx/sites-available/team3-Frontend.conf ] && sudo rm /etc/nginx/sites-available/team3-Frontend.conf
 [ -f /etc/nginx/sites-enabled/team3-Frontend.conf ] && sudo rm /etc/nginx/sites-enabled/team3-Frontend.conf
-cd ~/team3-Frontend/bin;
-sudo cp team3-Frontend.conf ~/../../etc/nginx/sites-available/team3-Frontend.conf
-sudo cat ~/../../etc/nginx/sites-available/team3-Frontend.conf
-cd ~
+cd /team3-Frontend/bin;
+sudo cp team3-Frontend.conf /etc/nginx/sites-available/team3-Frontend.conf
+sudo cat /etc/nginx/sites-available/team3-Frontend.conf
+cd
 sudo ln -s /etc/nginx/sites-available/team3-Frontend.conf /etc/nginx/sites-enabled/team3-Frontend.conf
-sudo cat ~/../../etc/nginx/sites-enabled/team3-Frontend.conf
+sudo cat /etc/nginx/sites-enabled/team3-Frontend.conf
 
 echo "==========================================="
 echo "5. react build"
 echo "==========================================="
-cd ~/team3-Frontend
+cd /team3-Frontend
 [ -d build ] && rm -rf build
 echo "*** log with : npm cache ***"
 [ -d node_modules ] && rm -rf node_modules
@@ -54,7 +52,7 @@ npm install
 echo "*** log with : npm build ***"
 npm run build
 echo "*** team1-imageboard-front/build/ ***"
-cd build/
+cd /build
 ls
 
 echo "==========================================="

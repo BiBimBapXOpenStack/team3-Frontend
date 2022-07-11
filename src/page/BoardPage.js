@@ -37,25 +37,27 @@ function BoardPage() {
     let user = localStorage.getItem('id') || ''
 
     async function getBoardInfo() {
-        try {
-            const bb = parseInt(bid);
-            const response = await axios.get(api + '/boards/board/' + bid, {
-                data: {
-                    b_id: bb,
-                },
-            }).then(res => {
-                console.log(res);
-                setId(res.data.u_id);
-                setTitle(res.data.title);
-                setTextField(res.data.textfield);
-                setDate(res.data.enter_date);
-                setPhotoURL(res.data.photoURL);
+        if(bid != '') {
+            try {
+                const bb = parseInt(bid);
+                const response = await axios.get(api + '/boards/board/' + bid, {
+                    data: {
+                        b_id: bb,
+                    },
+                }).then(res => {
+                    console.log(res);
+                    setId(res.data.u_id);
+                    setTitle(res.data.title);
+                    setTextField(res.data.textfield);
+                    setDate(res.data.enter_date);
+                    setPhotoURL(res.data.photoURL);
 
-                //getImage(res.data.photoURL);
-            });
-        } catch (error) {
-            //응답 실패
-            console.error(error);
+                    //getImage(res.data.photoURL);
+                });
+            } catch (error) {
+                //응답 실패
+                console.error(error);
+            }
         }
     }
 
