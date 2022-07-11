@@ -64,6 +64,15 @@
     background-color: lightslategrey;
     color: white;
 }
-.footer{
+.divButton {
+    width: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 0px;
 
+}
+.btn {
+    margin-left: 10px;
 }
