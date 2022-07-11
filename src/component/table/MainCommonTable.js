@@ -17,12 +17,11 @@ const MainCommonTable = props => {
     let user = localStorage.getItem('id') || '';
 
     useEffect(() => {
-        const page = '1';
 
         async function getBoardInfo() {
 
             try {
-                const response = await axios.get(api + '/boards/' + page, {}).then(res => {
+                const response = await axios.get(api + '/boards/' + pageNum, {}).then(res => {
                     console.log(res.data);
                     setDatalist(res.data);
                     res.data.map((row, index) => {
