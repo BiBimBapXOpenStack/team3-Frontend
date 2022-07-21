@@ -82,7 +82,6 @@ function WritePage() {
                     textfield: textfield,
                     photoURL : file,
                 },
-                //
             ).then(res => {
                 console.log(res);
                 window.location.href = "/main";

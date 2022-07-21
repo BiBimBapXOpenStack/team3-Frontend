@@ -14,9 +14,10 @@ const MainPageLogin = props => {
     function myPage() {
         window.location.href = "/user"
     }
+    let user = localStorage.getItem('id') || ''
     function logout() {
         try {
-            axios.get(api + '/users/logout')
+            axios.get(api + '/users/logout/'+ user)
                 .then(res => {
                     console.log(res);
                     if (res.data) {
