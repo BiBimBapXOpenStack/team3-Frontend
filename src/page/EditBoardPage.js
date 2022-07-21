@@ -99,6 +99,7 @@ function EditBoardPage() {
                     textfield: textfield,
                     photoURL: photoURL,
                     bid: bid,
+                    u_id: user,
                 },
             ).then(res => {
                 console.log(res);
