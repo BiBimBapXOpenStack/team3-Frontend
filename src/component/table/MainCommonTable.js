@@ -22,10 +22,11 @@ const MainCommonTable = props => {
                 const response = await axios.get(api + '/boards/' + pageNum, {}).then(res => {
                     console.log(res.data);
                     setDatalist(res.data);
+                    url.length = 0;
                     res.data.map((row, index) => {
                         url.push('boards/one/' + row.bid);
-                        console.log(url[index+(5*(pageNum-1))]);
                     })
+                    console.log(url);
                 });
             } catch (error) {
                 //응답 실패
@@ -55,7 +56,7 @@ const MainCommonTable = props => {
                             <CommonTableColumn>{row.title}</CommonTableColumn>
                             <CommonTableColumn>{row.enter_date}</CommonTableColumn>
                             <button onClick={() => {
-                                window.location.href = url[index+(5*(pageNum-1))]
+                                window.location.href = url[index]
                             }}>게시물 보기
                             </button>
                         </CommonTableRow>
