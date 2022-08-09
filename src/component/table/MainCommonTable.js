@@ -24,7 +24,7 @@ const MainCommonTable = props => {
                     setDatalist(res.data);
                     res.data.map((row, index) => {
                         url.push('boards/one/' + row.bid);
-                        console.log(url[index]);
+                        console.log(url[index+(5*(pageNum-1))]);
                     })
                 });
             } catch (error) {
@@ -34,10 +34,6 @@ const MainCommonTable = props => {
         }
         getBoardInfo();
     }, [pageNum]);
-    useEffect(() => {
-            setURL([]);
-            setPageNum(pageNum => pageNum);
-            }, []);
     const decreasePage = (e) => {
         if (pageNum > 1)
             setPageNum(pageNum => pageNum -1)
@@ -59,7 +55,7 @@ const MainCommonTable = props => {
                             <CommonTableColumn>{row.title}</CommonTableColumn>
                             <CommonTableColumn>{row.enter_date}</CommonTableColumn>
                             <button onClick={() => {
-                                window.location.href = url[index]
+                                window.location.href = url[index+(5*(pageNum-1))]
                             }}>게시물 보기
                             </button>
                         </CommonTableRow>
