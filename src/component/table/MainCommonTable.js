@@ -36,6 +36,7 @@ const MainCommonTable = props => {
     }, [pageNum]);
     useEffect(() => {
             setURL([]);
+            setPageNum(pageNum => pageNum);
             }, []);
     const decreasePage = (e) => {
         if (pageNum > 1)
