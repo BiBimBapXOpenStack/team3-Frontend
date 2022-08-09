@@ -15,7 +15,6 @@ const MainCommonTable = props => {
     const [url, setURL] = useState([]);
     let urllist = new Array();
     let user = localStorage.getItem('id') || '';
-    setURL([]);
     useEffect(() => {
 
         async function getBoardInfo() {
@@ -35,7 +34,9 @@ const MainCommonTable = props => {
         }
         getBoardInfo();
     }, [pageNum]);
-
+    useEffect(() => {
+            setURL([]);
+            }, []);
     const decreasePage = (e) => {
         if (pageNum > 1)
             setPageNum(pageNum => pageNum -1)
